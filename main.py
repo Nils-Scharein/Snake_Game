@@ -37,11 +37,6 @@ def main():
     is_game_on = True
     set_heading()
     food.spawn_food()
-    snake.new_tail()
-    snake.new_tail()
-    snake.new_tail()
-    snake.new_tail()
-    snake.new_tail()
     snake.change_sprites()
     food.spawn_food()
 
@@ -53,7 +48,8 @@ def main():
         score.update_Scoreboar()
         snake.eat(food, score)
         if snake.check_colison():
-            is_game_on = False
+            score.reset()
+            snake.reset()
 
 
 

@@ -142,6 +142,12 @@ class Snake:
             elif self.segments[seg_num].heading() == LEFT and self.segments[seg_num + 1].heading() == UP or self.segments[seg_num].heading() == DOWN and self.segments[seg_num + 1].heading() == RIGHT:
                 self.segments[seg_num].shape("curve3")
 
+    def reset(self):
+        for segment in self.segments:
+            segment.setpos(999999,9999999)
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
 
     def right(self):
         if self.head.heading() != LEFT:

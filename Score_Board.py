@@ -1,11 +1,15 @@
 from turtle import Turtle
 
+ALIGNMENT = "center"
+FONT = ("Courier", 24, "normal")
+
 X = 0
 Y = 270
 
 class Scoreboard:
     def __init__(self, Height):
         self.score = 0
+        self.high_score = 0
         self.local_turtle = self.set_up(Height)
 
 #setup Scoreboard
@@ -18,9 +22,24 @@ class Scoreboard:
         return local_turtle
 
     def update_Scoreboar(self):
-        self.local_turtle.clear()
-        scoretring = "Score %s" % self.score
-        self.local_turtle.write(scoretring, False, align="center", font = ("Arial", 14, "normal"))
+        with open("High Score.txt", mode="r") as f:
+            self.high_score = f.read()
+            self.local_turtle.clear()
+            self.local_turtle.write(f"Score: {self.score} High Score: {self.high_score}", False, align="center", font = ("Arial", 14, "normal"))
 
     def increase_score(self):
         self.score += 1
+
+    def reset(self):
+        with open("High Score.txt", mode="r") as f:
+            score = int(f.read().strip())
+            print(score)
+        if self.score > score:
+            print("True")
+            with open("High Score.txt", mode="w") as f:
+                f.write(str(self.score))
+        self.score = 0
+
+    def game_over(self):
+        self.local_turtle.goto(0, 0)
+        self.local_turtle.write("GAME OVER", align=ALIGNMENT, font=FONT)
